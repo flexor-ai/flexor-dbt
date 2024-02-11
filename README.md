@@ -5,7 +5,7 @@ This dbt package contains `flexor` macros that can be (re)used across dbt projec
 
 ## Supports:
 * Bigquery
-* Snowflake (upcoming - February)
+* Snowflake
 
 # How to start?
 
