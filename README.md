@@ -1,37 +1,93 @@
 # Flexor dbt
 
-# What does this examples do?
-This dbt package contains  `flexor` macros that can be (re)used across dbt projects
+# What does this project do?
+This dbt package contains `flexor` macros that can be (re)used across dbt projects. The most useful is `flexor.flex` that allows to ask any question on ingested data,
 
-# Example project?
-* [Steam Example](https://github.com/flexor-ai/dbt-steam-example)
+## Supports:
+* Bigquery
+* Snowflake (upcoming - February)
 
-# Useful macros
+# How to start?
 
-## Wrap flex Macros
+Jump to the example [Steam](https://github.com/flexor-ai/dbt-steam-example) project - read & run it.
 
-### flexor.flex(src_table, flex_query, cache_mode=True, online_mode=True)
+## Example project
+* [Steam](https://github.com/flexor-ai/dbt-steam-example) with data
+* [Zendesk](https://github.com/flexor-ai/dbt-zendesk)
 
-## Prase flex result Macros
+# macros
 
-### flexor.answer(flex_json)
+## flex Macros
 
-### flexor.category(flex_json)
+### flexor.flex
+`flexor.flex(src_table, flex_query, cache_mode=True, online_mode=True) -> json`
 
-### flexor.prediction(flex_json)
+Wraps `FLEX(flex_id, "flex_query")` db function to be more suitable for dbt.
+Requires that `src_table` will have a "flex_id" column.
+
+Example:
+```
+flexor.flex(ref('train_review'), 'Is it slow?')
+```
+* `cache_mode` - if set to false, even in incremental mode, re-run the query
+* `online_mode` - if set to false, never run real transformation and use only incremental (cached) results
+
+## Prase flex result macros
+
+### flexor.answer
+`flexor.answer(flex_json) -> bool`  
+Converts classification results to boolean
+
+Example:
+```
+flexor.answer(flexor.flex(ref('train_review'), 'Is it slow?'))
+```
+
+### flexor.category
+`flexor.category(flex_json) -> string | null`
+Converts categorization results to nullable string
+
+### flexor.prediction
+`flexor.prediction(flex_json) -> string | null`
+Converts prediction results to nullable string
 
 ## Statistics Macros
+Exploration macros - great for views to go over the data
 
-### flexor.categories_statistics(flex_table, reference_table=null, reference_table_fields=null, filter_nulls=true)
+### flexor.prediction_statistics
+`flexor.prediction_statistics(flex_table, reference_table=null, reference_table_fields=null, filter_nulls=true)`
 
-### flexor.prediction_statistics(flex_table, reference_table=null, reference_table_fields=null, filter_nulls=true)
+Count and aggregates predictions of a `flexor.flex` model. Can split based on `reference_table_fields`
 
-### flexor.predictions_statistics(flex_tables, reference_table=null, reference_table_fields=null)
+Examples:
+```
+{{ flexor.prediction_statistics(ref('train_review_slow')) }}
+```
+```
+{{ flexor.prediction_statistics(ref('train_review_slow'), ref('train_review'), ["year", "month"]) }}
+```
 
-# Other Macros
+### flexor.predictions_statistics
+`flexor.predictions_statistics(flex_tables, reference_table=null, reference_table_fields=null)`
 
-## Wrap flex Macros
+Count and aggregates predictions the of multiple `flexor.flex` models (including intersections). Can split based on `reference_table_fields`
 
+Example:
+```
+{{ flexor.predictions_statistics([
+    ref('train_review_slow'),
+    ref('train_review_fun')
+]) }}
+```
+
+### flexor.categories_statistics
+`flexor.categories_statistics(flex_table, reference_table=null, reference_table_fields=null, filter_nulls=true)`
+
+Count and aggregates categorization of a `flexor.flex` model. Can split based on `reference_table_fields`
+
+# Internal Macros
+Those Macros are used internally by `flexor.flex` to support incremental and online modes.
+There are no reason to use them.
 ### flexor.flex_raw(flexor_id, flex_query)
 
 ### flexor.incremental_flex(src_table, flex_query)
