@@ -1,5 +1,5 @@
 
-# Flexor's dbt Package For Transforming ZenDesk Tickets To Structured Data
+# Flexor's dbt Core Package For Transforming Unstructured Data
 <p align="center">
    <img alt="GitHub License" src="https://img.shields.io/github/license/flexor-ai/dbt-zendesk">
    <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
