@@ -57,7 +57,7 @@ flexor.flex(ref('train_review'), 'Is it slow?')
 * `cache_mode` - if set to false, even in incremental mode, re-run the query
 * `online_mode` - if set to false, never run real transformation and use only incremental (cached) results
 
-## Phrase `flex` result macros
+## Parse `flex` result macros
 
 ### flexor.answer
 Converts classification results to boolean
@@ -131,20 +131,6 @@ Count and aggregates categorization of a `flexor.flex` model. Can split based on
 `flexor.categories_statistics(flex_table, reference_table=null, reference_table_fields=null, filter_nulls=true)`
 
 
-## Internal Macros
-Those Macros are used internally by `flexor.flex` to support incremental and online modes.
-There are no reason to use them.
-### flexor.flex_raw(flexor_id, flex_query)
-
-### flexor.incremental_flex(src_table, flex_query)
-
-### flexor.incremental_flex(src_table, flex_query)
-
-### flexor.non_incremental_flex(src_table, flex_query)
-
-### readonly_flex(src_table, flex_query)
-
-
 # 🔍 Does this package have dependencies?
 No - but you should have acess to the [Flexor](https://flexor.ai) platform in order to use it. 
 
@@ -152,5 +138,5 @@ No - but you should have acess to the [Flexor](https://flexor.ai) platform in or
 The Flexor team actively maintains this package - if you have any questions or want to contribute, simply open a PR or email us at hello@flexor.ai.
 
 # 🏪 Are there any resources available?
-- If you have questions or want to reach out for help, please refer to the [GitHub Issue](https://github.com/flexor-ai/dbt-zendesk/issues/new/choose) section and create an issue.
+- If you have questions or want to reach out for help, please refer to the [GitHub Issue](https://github.com/flexor-ai/flexor-dbt/issues/new/choose) section and create an issue.
 - If you want to learn more about Flexor, you can visit our website at [Flexor.ai](https://flexor.ai)
