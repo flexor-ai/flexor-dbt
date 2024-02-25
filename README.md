@@ -6,7 +6,7 @@
    <img src="https://img.shields.io/badge/Contributions-welcome-blueviolet" />
 </p>
 
-> 💡 Note: This package is meant to be run by [Flexor](https://flexor.ai) users in order to transform ZenDesk tickets into structued data in dbt. If you found us on GitHub, please contact us at hello@flexor.ai to get access! 
+> 💡 Note: This package is meant to be run by [Flexor](https://flexor.ai) users in order to transform unstructured data (such as [ZenDesk tickets](https://github.com/flexor-ai/dbt-zendesk), [Steam  Reviews](https://github.com/flexor-ai/dbt-steam-example) and more) into structued data in dbt. If you found us on GitHub, please contact us at hello@flexor.ai to get access! 
 
 ## 📣 What does this dbt package do?
 
